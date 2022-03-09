@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,6 +17,12 @@ namespace vcardsh.web.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string Foto { get; set; }
+        public string Estado { get; set; }
+        public  DateTime? FechaCreacion { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -29,5 +36,9 @@ namespace vcardsh.web.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Perfil> Perfiles { get; set; }
+        public DbSet<DetalleUsuario> DetalleUsuarios { get; set; }
+        public DbSet<InfoPago> InfoPagos { get; set; }
     }
 }

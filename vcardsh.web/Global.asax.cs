@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using vcardsh.web.Clase;
+using vcardsh.web.Models;
 
 namespace vcardsh.web
 {
@@ -18,6 +20,15 @@ namespace vcardsh.web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            this.CheckRoles();
+            Utilities.CheckSuperUser();
+        }
+
+        private void CheckRoles()
+        {
+            Utilities.CheckRoles(UserRoles.Administrador);
+            Utilities.CheckRoles(UserRoles.Ventas);
+            Utilities.CheckRoles(UserRoles.Usuario);
         }
     }
 }

@@ -1,44 +1,94 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta name="description" content="">
+    <meta name="author" content="JM Hernandez">
+    <title>@ViewBag.Title - VCardHM</title>
     @Styles.Render("~/Content/css")
+    <link href="~/Content/main.css" rel="stylesheet" />
+
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <div class='dashboard'>
+        <div class="dashboard-nav">
+            <header>
+                <a href="@Url.Action("Index","Home")" class="menu-toggle"><i class="fas fa-bars"></i></a><a href="#"
+                                                                                   class="brand-logo">
+                    <i class="fas fa-address-card"></i> <span>VCard HM</span>
+                </a>
+            </header>
+            <nav class="dashboard-nav-list">
+                <a href="@Url.Action("Index","Home")" class="dashboard-nav-item">
+                    <i class="fas fa-home"></i>
+                    Principal
+                </a><a href="@Url.Action("Index","Usuarios")" class="dashboard-nav-item">
+                    <i class="fas fa-tachometer-alt"></i> Usuarios
+                </a><a href="@Url.Action("Index","Pagos")" class="dashboard-nav-item"><i class="fas fa-file-upload"></i> Pagos </a>
+                @*<div class='dashboard-nav-dropdown'>
+            <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                <i class="fas fa-photo-video"></i> Media
+            </a>
+            <div class='dashboard-nav-dropdown-menu'>
+                <a href="#"
+                   class="dashboard-nav-dropdown-item">All</a><a href="#" class="dashboard-nav-dropdown-item">Recent</a><a href="#" class="dashboard-nav-dropdown-item">Images</a><a href="#" class="dashboard-nav-dropdown-item">Video</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+        </div>
+        <div class='dashboard-nav-dropdown'>
+            <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                <i class="fas fa-users"></i> Users
+            </a>
+            <div class='dashboard-nav-dropdown-menu'>
+                <a href="#"
+                   class="dashboard-nav-dropdown-item">All</a><a href="#" class="dashboard-nav-dropdown-item">Subscribed</a><a href="#"
+                                                                                                                               class="dashboard-nav-dropdown-item">Non-subscribed</a><a href="#" class="dashboard-nav-dropdown-item">Banned</a><a href="#" class="dashboard-nav-dropdown-item">New</a>
+            </div>
+        </div>
+        <div class='dashboard-nav-dropdown'>
+            <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                <i class="fas fa-money-check-alt"></i> Payments
+            </a>
+            <div class='dashboard-nav-dropdown-menu'>
+                <a href="#"
+                   class="dashboard-nav-dropdown-item">All</a><a href="#" class="dashboard-nav-dropdown-item">Recent</a><a href="#" class="dashboard-nav-dropdown-item"> Projections</a>
+            </div>
+        </div>*@
+                <a href="#" class="dashboard-nav-item"><i class="fas fa-cogs"></i> Settings </a>
+                @*<a href="#" class="dashboard-nav-item"><i class="fas fa-user"></i> Profile </a>*@
+                <div class="nav-item-divider"></div>
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:document.getElementById('logoutForm').submit()" class="dashboard-nav-item"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión </a>
+                    }
+
+                }
+
+            </nav>
+        </div>
+        <div class='dashboard-app'>
+            <header class='dashboard-toolbar'><a href="#!" class="menu-toggle"><i class="fas fa-bars"></i></a></header>
+            <div class='dashboard-content'>
+                <div class='container'>
+                    @RenderBody()
+                </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/main.js"></script>
+    <script src="https://kit.fontawesome.com/56a399c99f.js" crossorigin="anonymous"></script>
     @RenderSection("scripts", required: false)
+
 </body>
 </html>
