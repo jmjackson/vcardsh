@@ -16,8 +16,8 @@ namespace vcardsh.web.Controllers
         // GET: Usuarios
         public ActionResult Index()
         {
-            
-            return View(db.Users.OrderBy(a=>a.Email).ToList());
+
+            return View(db.Users.OrderBy(a => a.Email).ToList());
         }
 
         // GET: Usuarios/Details/5
@@ -26,7 +26,7 @@ namespace vcardsh.web.Controllers
             return View();
         }
 
-        
+
 
         // POST: Usuarios/Create
         [HttpPost]
@@ -43,16 +43,16 @@ namespace vcardsh.web.Controllers
                 db.SaveChanges();
 
                 Perfil perfil = new Perfil() {
-                UsuarioId=userdb.Id,
+                    UsuarioId = userdb.Id,
                 };
                 db.Perfiles.Add(perfil);
                 db.SaveChanges();
                 InfoPago info = new InfoPago()
                 {
                     EmailCobro = User.Identity.GetUserName(),
-                    UsuarioId=userdb.Id,
-                    FechaPago=user.FechaCreacion,
-                    
+                    UsuarioId = userdb.Id,
+                    FechaPago = user.FechaCreacion,
+
                 };
                 db.InfoPagos.Add(info);
                 db.SaveChanges();
@@ -74,6 +74,12 @@ namespace vcardsh.web.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult GetUser(string id)
+        {
+            var usuario = db.Users.Find(id);
+            return Json(usuario, JsonRequestBehavior.AllowGet);
+        }
         // GET: Usuarios/Edit/5
         public ActionResult Edit(int id)
         {
@@ -82,12 +88,17 @@ namespace vcardsh.web.Controllers
 
         // POST: Usuarios/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(string id, ApplicationUser user)
         {
             try
             {
                 // TODO: Add update logic here
-
+                var usuario = db.Users.Find(user.Id);
+                usuario.Apellido = user.Apellido;
+                usuario.Nombre = user.Nombre;
+                usuario.PhoneNumber = usuario.PhoneNumber;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

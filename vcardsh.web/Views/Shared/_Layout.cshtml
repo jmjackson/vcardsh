@@ -17,18 +17,18 @@
     <div class='dashboard'>
         <div class="dashboard-nav">
             <header>
-                <a href="@Url.Action("Index","Home")" class="menu-toggle"><i class="fas fa-bars"></i></a><a href="#"
+                <a href="@Url.Action("Index", "Home")" class="menu-toggle"><i class="fas fa-bars"></i></a><a href="#"
                                                                                    class="brand-logo">
                     <i class="fas fa-address-card"></i> <span>VCard HM</span>
                 </a>
             </header>
             <nav class="dashboard-nav-list">
-                <a href="@Url.Action("Index","Home")" class="dashboard-nav-item">
+                <a href="@Url.Action("Index", "Home")" class="dashboard-nav-item">
                     <i class="fas fa-home"></i>
                     Principal
-                </a><a href="@Url.Action("Index","Usuarios")" class="dashboard-nav-item">
+                </a><a href="@Url.Action("Index", "Usuarios")" class="dashboard-nav-item">
                     <i class="fas fa-tachometer-alt"></i> Usuarios
-                </a><a href="@Url.Action("Index","Pagos")" class="dashboard-nav-item"><i class="fas fa-file-upload"></i> Pagos </a>
+                </a><a href="@Url.Action("Index", "Pagos")" class="dashboard-nav-item"><i class="fas fa-file-upload"></i> Pagos </a>
                 @*<div class='dashboard-nav-dropdown'>
             <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
                 <i class="fas fa-photo-video"></i> Media
@@ -86,6 +86,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="~/Scripts/main.js"></script>
     <script src="https://kit.fontawesome.com/56a399c99f.js" crossorigin="anonymous"></script>
    
